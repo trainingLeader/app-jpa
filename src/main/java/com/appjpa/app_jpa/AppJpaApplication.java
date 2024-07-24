@@ -82,4 +82,46 @@ public class AppJpaApplication implements CommandLineRunner {
 		scanner.close();
 	}
 
+	@Transactional(readOnly = true)
+	public void queriesFunctionAggregation() {
+
+		
+		System.out.println("================== consulta con el total de registros de la tabla persona ==================");
+		Long count = personRepository.getTotalPerson();
+		System.out.println(count);
+		
+		System.out.println("================== consulta con el valor minimo del id ==================");
+		Long min = personRepository.getMinId();
+		System.out.println(min);
+		
+		System.out.println("================== consulta con el valor maximo del id");
+		Long max = personRepository.getMaxId();
+		System.out.println(max);
+		
+		System.out.println("================== consulta con el nombre y su largo ==================");
+		List<Object[]> regs = personRepository.getPersonNameLength();
+		regs.forEach(reg -> {
+			String name = (String) reg[0];
+			Integer length = (Integer) reg[1];
+			System.out.println("name=" + name + ", length=" + length);
+		});
+		
+		System.out.println("================== consulta con el nombre mas corto ==================");
+		Integer minLengthName = personRepository.getMinLengthName();
+		System.out.println(minLengthName);
+		
+		System.out.println("================== consulta con el nombre mas largo ==================");
+		Integer maxLengthName = personRepository.getMaxLengthName();
+		System.out.println(maxLengthName);
+
+		System.out.println("================== consultas resumen de funciones de agregacion min, max, sum, avg, count ==================");
+		Object[] resumeReg = (Object[]) personRepository.getResumeAggregationFunction();
+		System.out.println(
+			    "min=" + resumeReg[0] +
+				", max=" + resumeReg[1] +
+				", sum=" + resumeReg[2] +
+				", avg=" + resumeReg[3] +
+		        ", count=" + resumeReg[4]);
+	}
+
 }

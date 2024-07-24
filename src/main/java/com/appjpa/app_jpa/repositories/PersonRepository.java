@@ -29,6 +29,34 @@ public interface PersonRepository extends CrudRepository<Person,Long> {
 
     Optional<Person> findByNameContaining(String name);
 
+    @Query("select p from Person p where p.id in ?1")
+    public List<Person> getPersonsByIds(List<Long> ids);
+
+    @Query("select p.name, length(p.name) from Person p where length(p.name)=(select min(length(p.name)) from Person p)")
+    public List<Object[]> getShorterName();
+    
+    @Query("select p from Person p where p.id=(select max(p.id) from Person p)")
+    public Optional<Person> getLastRegistration();
     //-------------------
+    @Query("select min(p.id), max(p.id), sum(p.id), avg(length(p.name)), count(p.id) from Person p")
+    public Object getResumeAggregationFunction();
+    
+    @Query("select min(length(p.name)) from Person p")
+    public Integer getMinLengthName();
+    
+    @Query("select max(length(p.name)) from Person p")
+    public Integer getMaxLengthName();
+
+    @Query("select p.name, length(p.name) from Person p")
+    public List<Object[]> getPersonNameLength();
+
+    @Query("select count(p) from Person p")
+    Long getTotalPerson();
+
+    @Query("select min(p.id) from Person p")
+    Long getMinId();
+    
+    @Query("select max(p.id) from Person p")
+    Long getMaxId();
 
 }

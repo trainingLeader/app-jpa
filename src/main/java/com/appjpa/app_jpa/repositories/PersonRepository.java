@@ -28,4 +28,7 @@ public interface PersonRepository extends CrudRepository<Person,Long> {
     Optional<Person> findOneLikeName(String name);
 
     Optional<Person> findByNameContaining(String name);
+
+    //-------------------
+
 }

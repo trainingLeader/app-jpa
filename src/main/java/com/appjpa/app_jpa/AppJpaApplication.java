@@ -137,4 +137,23 @@ public class AppJpaApplication implements CommandLineRunner {
 		persons.forEach(System.out::println);
 	}
 
+	@Transactional(readOnly = true)
+	public void personalizedQueriesConcatUpperAndLowerCase() {
+		System.out.println("================== consulta nombres y apellidos de personas ==================");
+		List<String> names = personRepository.findAllFullNameConcat();
+		names.forEach(System.out::println);
+
+		System.out.println("================== consulta nombres y apellidos mayuscula ==================");
+		names = personRepository.findAllFullNameConcatUpper();
+		names.forEach(System.out::println);
+
+		System.out.println("================== consulta nombres y apellidos minuscula ==================");
+		names = personRepository.findAllFullNameConcatLower();
+		names.forEach(System.out::println);
+		System.out.println("================== consulta personalizada persona upper y lower case ==================");
+		List<Object[]> regs = personRepository.findAllPersonDataListCase();
+		regs.forEach(reg -> System.out.println("id="+ reg[0] + ", nombre=" + reg[1] + ", apellido=" + reg[2]+ ", lenguaje="+reg[3]));
+
+	}
+
 }

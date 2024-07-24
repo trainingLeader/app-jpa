@@ -156,4 +156,24 @@ public class AppJpaApplication implements CommandLineRunner {
 
 	}
 
+	@Transactional(readOnly = true)
+	public void personalizedQueriesDistinct() {
+		System.out.println("================== consultas con nombres de personas ==================");
+		List<String> names = personRepository.findAllNames();
+		names.forEach(System.out::println);
+
+		System.out.println("==================  consultas con nombres unicos de personas ==================");
+		names = personRepository.findAllNamesDistinct();
+		names.forEach(System.out::println);
+
+		System.out.println("================== consulta con lenguaje de programacion unicas ==================");
+		List<String> languages = personRepository.findAllProgrammingLanguageDistinct();
+		languages.forEach(System.out::println);
+
+		System.out.println("================== consulta con total de lenguajes de programacion unicas ==================");
+		Long totalLanguage = personRepository.findAllProgrammingLanguageDistinctCount();
+		System.out.println("total de lenguajes de programacion: " + totalLanguage);
+
+	}
+
 }

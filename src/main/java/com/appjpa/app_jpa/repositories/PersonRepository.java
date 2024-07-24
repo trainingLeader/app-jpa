@@ -4,6 +4,8 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
 import com.appjpa.app_jpa.entities.Person;
+import com.appjpa.app_jpa.entities.PersonDto;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -83,5 +85,24 @@ public interface PersonRepository extends CrudRepository<Person,Long> {
     List<String> findAllFullNameConcat();
     @Query("select p.id, upper(p.name), lower(p.lastname), upper(p.programmingLanguage) from Person p")
     List<Object[]> findAllPersonDataListCase();
+    //******** USING DISTINC -------------------
+    @Query("select p.name from Person p")
+    List<String> findAllNames();
+
+    @Query("select distinct(p.name) from Person p")
+    List<String> findAllNamesDistinct();
+    
+    @Query("select new com.andres.curso.springboot.jpa.springbootjpa.dto.PersonDto(p.name, p.lastname) from Person p")
+    List<PersonDto> findAllPersonDto();
+    
+    @Query("select new Person(p.name, p.lastname) from Person p")
+    List<Person> findAllObjectPersonPersonalized();
+
+    @Query("select count(distinct(p.programmingLanguage)) from Person p")
+    Long findAllProgrammingLanguageDistinctCount();
+    
+    @Query("select distinct(p.programmingLanguage) from Person p")
+    List<String> findAllProgrammingLanguageDistinct();
+    
 
 }

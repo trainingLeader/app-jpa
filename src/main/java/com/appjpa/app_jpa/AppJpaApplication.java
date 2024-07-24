@@ -124,4 +124,17 @@ public class AppJpaApplication implements CommandLineRunner {
 		        ", count=" + resumeReg[4]);
 	}
 
+	@Transactional(readOnly=true)
+	public void personalizedQueriesBetween() {
+		System.out.println("================== consultas por rangos ==================");
+		List<Person> persons = personRepository.findByIdBetweenOrderByNameAsc(2L, 5L);
+		persons.forEach(System.out::println);
+		
+		persons = personRepository.findByNameBetweenOrderByNameDescLastnameDesc("J", "Q");
+		persons.forEach(System.out::println);
+
+		persons = personRepository.findAllByOrderByNameAscLastnameDesc();
+		persons.forEach(System.out::println);
+	}
+
 }

@@ -28,14 +28,8 @@ public class AppJpaApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-		//List<Person> persons = (List<Person>) personRepository.findAll();
-		//List<Person> persons = (List<Person>) personRepository.findByProgrammingLanguage("Java");
-		List<Person> persons = (List<Person>) personRepository.buscarByProgrammingLanguage("Java","Johlver");
-		// persons.stream().forEach(person -> System.out.println(person));
-
-		// List<Object[]> personValues = personRepository.obtenerPersonData();
-		// personValues.stream().forEach(person -> System.out.println(person[0]));
-		update();
+		create();
+		//update();
 	}
 	@Transactional
 	public void create() {

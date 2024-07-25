@@ -1,6 +1,7 @@
 package com.appjpa.app_jpa.entities;
 
 import jakarta.persistence.Column;
+import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -20,6 +21,9 @@ public class Person {
 
     @Column(name = "programming_language")
     private String programmingLanguage;
+
+    @Embedded
+    Audit audit = new Audit();
 
     public Person() {
     }
@@ -59,8 +63,6 @@ public class Person {
     @Override
     public String toString() {
         return "[id=" + id + ", name=" + name + ", lastname=" + lastname + ", programmingLanguage="
-                + programmingLanguage + "]";
+                + programmingLanguage + " create_at= "+ audit.getCreatedAt() +"]";
     }
-
-    
 }
